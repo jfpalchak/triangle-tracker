@@ -1,10 +1,8 @@
-function handleHandleCheck(e) {
-    e.preventDefault();
-    const side1 = parseInt(document.querySelector("input#side1").value);
-    const side2 = parseInt(document.querySelector("input#side2").value);
-    const side3 = parseInt(document.querySelector("input#side3").value);
-
+// Business Logic
+function whatTriangleIsIt(side1, side2, side3) {
+    
     let result;
+
     if ((side1 + side2) <= side3 || (side1 + side3) <= side2 || (side2 + side3) <= side1) {
         result = "Not A Triangle!";
     } else if (side1 === side2 && side1 === side3) {
@@ -14,9 +12,28 @@ function handleHandleCheck(e) {
     } else if (side1 != side2 && side1 != side3) {
         result = "It's a Scalene";
     } 
-    document.querySelector(".theResult").innerText = result;
+    return result;
 }
-window.addEventListener("load", function () {
+
+// UI Logic
+function printResult(inputParam) {
+    document.querySelector(".theResult").innerText = inputParam;
+}
+
+function handleHandleCheck(e) {
+    e.preventDefault();
+    const side1 = parseInt(document.querySelector("input#side1").value);
+    const side2 = parseInt(document.querySelector("input#side2").value);
+    const side3 = parseInt(document.querySelector("input#side3").value);
+
+    const triResult = whatTriangleIsIt(side1, side2, side3);
+
+    printResult(triResult);
+}
+
+function handleFormEvent () {
     const form = document.getElementById("formid");
-    form.addEventListener("submit",handleHandleCheck);
-});
+    form.addEventListener("submit", handleHandleCheck);
+}
+
+window.addEventListener("load", handleFormEvent);
